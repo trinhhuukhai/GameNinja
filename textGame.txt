@@ -1,0 +1,20 @@
+- animation: xac dinh man hinh ngang, doc
+-2D -> Capsule: 1 nhân vật, đơn vị chuẩn trong U
+-Phân lớp đối tượng: code(logic) + hình ảnh: sprite, UI, anim
+-UI: add component Animator cho nhân vật: tạo animController: anim điều khiển: tạo từng anim cho nhân vật(từng hoạt ảnh, action của nhân vật )
+
+- Phân tích anim(hoạt động của nhân vật):
+	-AnyState: bất kỳ 1 trạng thái này cũng có thể chuyển sang trạng thái mong muốn
+	-Has exit time: trạng thái đang anim cũ, bao nhiêu phần trăm mới chuyển đổi sang anim mới
+	-Fixed , Transtion: từ anim cũ, bao nhiêu giây mới chuyển sang anim mới
+	-Parameter: trigger, bool, int: chọn trigger, int dùng cho anim đen
+
+- điều khiển nhân vật
+	- Tạo Ground: Square: muốn cho nhân vật va chạm cần
+		-Nhân vật: Capsule Colider2D, Rigidbody 2D, trong Rigidbody cần tick FreezeRotation Z để ko bị lệch trục Z(tránh Z = 0)
+		-Ground: Cần Box Colider2D để hứng được nhân vật
+
+--Tilemap : vẽ bản dồ 2Dm sử dụng tilemap colider để hứng nhân vật: khi add composite collier phải tick "static" của rigitbody để khối ko bị di chuyển
+		Sử dụng composite collider để tile map thành 1 khối, không bị giật (layer ground để có thể hứng được)
+
+-- Platform Effecter: nhảy từ dưới xuyên qua 1 phía platform lên trên
