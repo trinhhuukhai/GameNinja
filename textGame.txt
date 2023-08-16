@@ -18,3 +18,5 @@
 		Sử dụng composite collider để tile map thành 1 khối, không bị giật (layer ground để có thể hứng được)
 
 -- Platform Effecter: nhảy từ dưới xuyên qua 1 phía platform lên trên
+--Prefab: khi nhiều gameObject sử dụng chung
+
