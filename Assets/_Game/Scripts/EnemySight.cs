@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class EnemySight : MonoBehaviour
 {
+
     public Enemy enemy;
-    // Start is called before the first frame update
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag == "Player")
@@ -21,4 +22,5 @@ public class EnemySight : MonoBehaviour
             enemy.SetTarget(null);
         }
     }
+
 }

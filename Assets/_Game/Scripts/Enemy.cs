@@ -10,7 +10,7 @@ public class Enemy : Character
     [SerializeField] private float moveSpeed;
     [SerializeField] private Rigidbody2D rb;
     // Start is called before the first frame update
-
+    [SerializeField] private GameObject attackArea;
 
     private IState currentState;
 
@@ -21,7 +21,7 @@ public class Enemy : Character
 
     private void Update()
     {
-        if(currentState != null)
+        if (currentState != null)
         {
             currentState.OnExecute(this);
         }
@@ -32,16 +32,23 @@ public class Enemy : Character
         base.OnInit();
 
         ChangeState(new IdleState());
+
+        DeActiveAttack();
     }
 
     public override void OnDespawn()
     {
         base.OnDespawn();
+
+        Destroy(gameObject);
     }
 
     protected override void OnDeath()
     {
+        ChangeState(null);
         base.OnDeath();
+
+
     }
 
     public void ChangeState(IState newState)
@@ -63,6 +70,7 @@ public class Enemy : Character
     internal void SetTarget(Character character)
     {
         this.target = character;
+
         if (IsTargetInRange())
         {
             ChangeState(new AttackState());
@@ -83,7 +91,7 @@ public class Enemy : Character
         ChangeAnim("run");
         rb.velocity = transform.right * moveSpeed;
     }
-
+     
     public void StopMoving()
     {
         ChangeAnim("idle");
@@ -92,12 +100,22 @@ public class Enemy : Character
 
     public void Attack()
     {
+        ChangeAnim("attack");
 
+        DeActiveAttack();
     }
 
     public bool IsTargetInRange()
     {
-        return Vector2.Distance(target.transform.position, transform.position) <= attackRange;
+        if(target != null && Vector2.Distance(target.transform.position, transform.position) <= attackRange)
+        {
+            return true;
+        }
+        else
+        {
+            return false;  
+        }
+      
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -115,5 +133,16 @@ public class Enemy : Character
         transform.rotation = isRight ? Quaternion.Euler(Vector3.zero) : Quaternion.Euler(Vector3.up * 180);
     }
 
-  
+    private void ActiveAttack()
+    {
+
+        attackArea.SetActive(true);
+    }
+
+    private void DeActiveAttack()
+    {
+        attackArea.SetActive(false);
+    }
+
+
 }

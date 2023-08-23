@@ -4,14 +4,11 @@ using UnityEngine;
 
 public interface IState
 {
-    //bat dau vao state
-    void OnEnter(Enemy enemy);
+    void OnEnter(Enemy enemy) { }
 
-    //update state
-    void OnExecute(Enemy enemy);
+    void OnExecute(Enemy enemy) { }
 
-    //thoat khoi state
-    void OnExit(Enemy enemy);
+    void OnExit(Enemy enemy) { }
 
 
 }
