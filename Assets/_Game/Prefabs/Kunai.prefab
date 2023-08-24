@@ -203,4 +203,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20e5e5dd153500418b4f0a18037ff4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitVFX: {fileID: 949375327394992391, guid: 7a02754bd1417c94d98c5c86b869e7f2, type: 3}
   rb: {fileID: 2052366103626692263}

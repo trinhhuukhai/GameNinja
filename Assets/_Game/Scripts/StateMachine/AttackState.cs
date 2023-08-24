@@ -9,7 +9,8 @@ public class AttackState : IState
     public void OnEnter(Enemy enemy)
     {
         if(enemy.Target != null)
-        {//doi huong enemy toi huong cua player
+        {
+            //doi huong enemy toi huong cua player
             enemy.ChaneDirection(enemy.Target.transform.position.x > enemy.transform.position.x);
             enemy.StopMoving();
             enemy.Attack();

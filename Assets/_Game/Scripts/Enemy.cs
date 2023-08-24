@@ -25,6 +25,11 @@ public class Enemy : Character
         {
             currentState.OnExecute(this);
         }
+        if (!IsTargetInRange() && !(currentState is AttackState))
+        {
+            ChangeState(new PatrolState());
+
+        }
     }
 
     public override void OnInit()
@@ -39,7 +44,7 @@ public class Enemy : Character
     public override void OnDespawn()
     {
         base.OnDespawn();
-
+        Destroy(healthBar.gameObject);
         Destroy(gameObject);
     }
 
@@ -102,7 +107,8 @@ public class Enemy : Character
     {
         ChangeAnim("attack");
 
-        DeActiveAttack();
+        ActiveAttack();
+        Invoke(nameof(DeActiveAttack), 0.5f); 
     }
 
     public bool IsTargetInRange()
@@ -124,6 +130,8 @@ public class Enemy : Character
         {
             ChaneDirection(!isRight);
         }
+
+       
     }
 
     public void ChaneDirection(bool isRight)
@@ -138,6 +146,7 @@ public class Enemy : Character
 
         attackArea.SetActive(true);
     }
+
 
     private void DeActiveAttack()
     {

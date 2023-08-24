@@ -11,9 +11,12 @@ public class Character : MonoBehaviour
     private string currentAnimName;
     [SerializeField] private Animator anim;
 
+    [SerializeField] protected HealthBar healthBar;
+
+    [SerializeField] private CombatText combatTextPrefabs;
 
 
-    public bool isDeath => hp >= 0;
+    public bool IsDead => hp <= 0;
 
     private void Start()
     {
@@ -21,24 +24,30 @@ public class Character : MonoBehaviour
     }
     public virtual void OnInit() { 
         hp = 100;
+        healthBar.OnInit(100, transform); 
     }
 
     public virtual void OnDespawn() { }
 
     public virtual void OnHit(float damage) {
-        if(!isDeath)
+        if(!IsDead)
         {
             hp -= damage;
 
-            if(isDeath)
+            if(IsDead)
             {
+                hp = 0;
                 OnDeath();
             }
+            healthBar.SetNewHp(hp);
+            Instantiate(combatTextPrefabs, transform.position + Vector3.up, Quaternion.identity).OnInit(damage);
         }
     }
 
     protected void ChangeAnim(string animName)
     {
+
+           
         if (currentAnimName != animName)
         {
             anim.ResetTrigger(animName);
